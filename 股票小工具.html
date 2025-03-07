@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>股票小工具</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 50px;
+    }
+    .calculator {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    .calculator h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .row {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+    }
+    .row label {
+      width: 120px;
+    }
+    .row input[type="number"] {
+      flex: 1;
+      padding: 5px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    button {
+      padding: 8px 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #results, #diffResult {
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 第一部分：针对一个数字，计算其在 1%~10% 增加或减少时的结果列表 -->
+  <div class="calculator">
+    <h2>盈亏计算器</h2>
+    <div class="row">
+      <label for="baseNumber">输入数字：</label>
+      <input type="number" id="baseNumber" placeholder="例如 100">
+    </div>
+    <div class="buttons">
+      <button onclick="calculateProfit()">盈利</button>
+      <button onclick="calculateLoss()">亏损</button>
+    </div>
+    <div id="results"></div>
+  </div>
+
+  <!-- 第二部分：比较两个数字，计算它们的百分比差异 -->
+  <div class="calculator">
+    <h2>两个数的百分比差异</h2>
+    <div class="row">
+      <label for="firstValue">第一个数：</label>
+      <input type="number" id="firstValue" placeholder="例如 100">
+    </div>
+    <div class="row">
+      <label for="secondValue">第二个数：</label>
+      <input type="number" id="secondValue" placeholder="例如 90">
+    </div>
+    <div class="row">
+      <button onclick="calculatePercentageDifference()">计算差异</button>
+    </div>
+    <div id="diffResult"></div>
+  </div>
+
+  <script>
+    // ============= 第一部分：盈亏功能 =============
+    // 盈利：计算数字增加1%到10%的结果
+    function calculateProfit() {
+      const base = parseFloat(document.getElementById("baseNumber").value);
+      const resultsDiv = document.getElementById("results");
+      if (isNaN(base)) {
+        resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
+        return;
+      }
+      let html = "<ul>";
+      for (let i = 1; i <= 10; i++) {
+        const result = base * (1 + i / 100);
+        html += `<li>增加 ${i}%：${result.toFixed(2)}</li>`;
+      }
+      html += "</ul>";
+      resultsDiv.innerHTML = html;
+    }
+
+    // 亏损：计算数字减少1%到10%的结果
+    function calculateLoss() {
+      const base = parseFloat(document.getElementById("baseNumber").value);
+      const resultsDiv = document.getElementById("results");
+      if (isNaN(base)) {
+        resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
+        return;
+      }
+      let html = "<ul>";
+      for (let i = 1; i <= 10; i++) {
+        const result = base * (1 - i / 100);
+        html += `<li>减少 ${i}%：${result.toFixed(2)}</li>`;
+      }
+      html += "</ul>";
+      resultsDiv.innerHTML = html;
+    }
+
+    // ============= 第二部分：计算两个数的差异百分比 =============
+    function calculatePercentageDifference() {
+      const base = parseFloat(document.getElementById("firstValue").value);
+      const compare = parseFloat(document.getElementById("secondValue").value);
+      const diffDiv = document.getElementById("diffResult");
+
+      if (isNaN(base) || isNaN(compare)) {
+        diffDiv.innerHTML = "<p>请输入正确的数字！</p>";
+        return;
+      }
+
+      // 差异百分比公式： (compare - base) / base * 100
+      const difference = ((compare - base) / base) * 100;
+
+      // toFixed(2) 保留两位小数
+      diffDiv.innerHTML = `<p>差异：${difference.toFixed(2)}%</p>`;
+    }
+  </script>
+
+</body>
+</html>
