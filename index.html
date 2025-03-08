@@ -59,7 +59,32 @@
       margin-top: 15px;
       line-height: 1.6;
     }
-  </style>
+    @media screen and (max-width: 600px) {
+  .calculator {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .row label, .row input {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+</style>
 </head>
 <body>
 
