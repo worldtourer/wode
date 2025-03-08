@@ -5,19 +5,21 @@
   <title>股票小工具</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Noto Sans SC', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 50px;
+      background-color:#f9fafc;
     }
     .calculator {
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid #dfe6e9;
+      border-radius: 10px;
       padding: 20px;
       max-width: 400px;
       width: 100%;
       margin-bottom: 30px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.88);
     }
     .calculator h2 {
       text-align: center;
@@ -44,13 +46,14 @@
       padding: 8px 16px;
       cursor: pointer;
       border: none;
-      border-radius: 4px;
-      background-color: #4CAF50;
+      border-radius: 6px;
+      background-color: #2ecc71;
       color: white;
       font-size: 14px;
     }
     button:hover {
-      background-color: #45a049;
+      background-color: #27ae60;
+      transform:translateY(-2px);
     }
     #results, #diffResult {
       margin-top: 15px;
