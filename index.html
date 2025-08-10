@@ -1,183 +1,234 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- 视口设置，保证移动端适配 -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
-    />
-    <title>股票小工具</title>
-    <style>
-      /* 基础排版 */
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        font-family: sans-serif;
-        margin: 1rem;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      h1 {
-        text-align: center;
-        font-size: 1.5rem;
-      }
-      .section {
-        margin: 1rem 0;
-        padding: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        max-width: 600px;
-        width: 100%;
-      }
-      .row {
-        display: flex;
-        align-items: center;
-        margin: 0.5rem 0;
-        flex-wrap: wrap;
-      }
-      label {
-        flex: 0 0 120px;
-      }
-      input {
-        flex: 1 1 auto;
-        padding: 0.5rem;
-        font-size: 1rem;
-      }
-      button {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        margin: 0.5rem 0.25rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .btn-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-      .result {
-        margin-top: 0.5rem;
-        font-weight: bold;
-      }
-      /* 按钮配色 */
-      .primary {
-        background-color: #007bff;
-        color: white;
-      }
-      .secondary {
-        background-color: #6c757d;
-        color: white;
-      }
-      .success {
-        background-color: #28a745;
-        color: white;
-      }
-      .danger {
-        background-color: #dc3545;
-        color: white;
-      }
-      /* 小屏幕优化 */
-      @media (max-width: 480px) {
-        body {
-          margin: 0.5rem;
-        }
-        label {
-          flex: 0 0 100px;
-        }
-        button {
-          flex: 1 1 100%;
-          min-width: 120px;
-          font-size: 0.9rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>股票小工具</title>
+  <style>
+    :root{
+      --bg:#f6f7f8;
+      --card:#ffffff;
+      --text:#0f172a;
+      --sub:#334155;
+      --green:#22c55e;   /* 按钮主色（接近你图里的绿色） */
+      --green-press:#16a34a;
+      --radius:18px;
+      --shadow:0 12px 24px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft Yahei",Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:16px;
+    }
+
+    .wrap{max-width:720px;margin:0 auto 60px}
+    h1{
+      text-align:center;
+      font-size:22px;
+      font-weight:700;
+      margin:6px 0 18px;
+      color:var(--text);
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      margin:20px 0;
+    }
+    .card h2{
+      margin:6px 0 18px;
+      font-size:24px;
+      line-height:1.25;
+      font-weight:800;
+      text-align:center;
+    }
+
+    .row{margin:12px 0}
+    label{
+      display:block;
+      font-size:16px;
+      color:var(--sub);
+      margin-bottom:6px;
+    }
+    input[type="number"]{
+      width:100%;
+      height:44px;
+      padding:0 12px;
+      font-size:16px;
+      line-height:44px;
+      border:1px solid #cfd8e3;
+      border-radius:10px;
+      outline:none;
+      background:#fff;
+    }
+    input::placeholder{color:#9ca3af}
+
+    .btn{
+      appearance:none;
+      display:block;
+      width:100%;
+      height:48px;
+      border:0;
+      border-radius:12px;
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:.02em;
+      cursor:pointer;
+      transition:transform .02s ease, filter .2s ease;
+      margin:12px 0;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-green{background:var(--green);color:#fff}
+    .btn-green:active{background:var(--green-press)}
+    .btn-outline{
+      background:#fff;color:var(--green);border:2px solid var(--green)
+    }
+
+    .results{margin-top:8px;font-size:16px;line-height:1.6}
+    .results ul{margin:8px 0 0 18px;padding:0}
+    .results li{margin:4px 0}
+
+    .sep{
+      text-align:center;
+      color:#94a3b8;
+      font-size:24px;
+      user-select:none;
+      margin:16px 0;
+    }
+
+    footer{
+      text-align:center;
+      color:#94a3b8;
+      font-size:14px;
+      padding-bottom:24px; /* 预留 iOS 手势条 */
+    }
+
+    /* 小屏优化 */
+    @media (max-width:480px){
+      body{padding:12px}
+      .card{padding:16px}
+      .btn{font-size:17px;height:46px}
+      .card h2{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
     <h1>股票小工具</h1>
 
-    <!-- 盈亏计算器 -->
-    <div class="section">
+    <!-- 卡片 1：盈亏计算器 -->
+    <section class="card">
       <h2>盈亏计算器</h2>
       <div class="row">
-        <label>买入价格：</label>
-        <input type="number" id="buyPrice" />
+        <label for="baseNumber">输入数字：</label>
+        <input type="number" id="baseNumber" placeholder="例如 100" inputmode="decimal">
       </div>
-      <div class="row">
-        <label>卖出价格：</label>
-        <input type="number" id="sellPrice" />
-      </div>
-      <div class="row">
-        <label>股数：</label>
-        <input type="number" id="shares" />
-      </div>
-      <div class="btn-container">
-        <button class="primary" onclick="calculateProfit()">计算盈亏</button>
-        <button class="secondary" onclick="clearProfit()">清空</button>
-      </div>
-      <div class="result" id="profitResult"></div>
-    </div>
+      <button class="btn btn-green" onclick="calculateProfit()">盈利</button>
+      <button class="btn btn-green" onclick="calculateLoss()">亏损</button>
+      <div id="results" class="results"></div>
+    </section>
 
-    <!-- 百分比差计算器 -->
-    <div class="section">
-      <h2>百分比差</h2>
-      <div class="row">
-        <label>数值 A：</label>
-        <input type="number" id="valueA" />
-      </div>
-      <div class="row">
-        <label>数值 B：</label>
-        <input type="number" id="valueB" />
-      </div>
-      <div class="btn-container">
-        <button class="success" onclick="calculatePercentage()">计算百分比差</button>
-        <button class="secondary" onclick="clearPercentage()">清空</button>
-      </div>
-      <div class="result" id="percentageResult"></div>
-    </div>
+    <!-- 一键清空（居中、与截图布局对齐） -->
+    <button class="btn btn-outline" onclick="clearAllInputs()">一键清空</button>
 
-    <script>
-      function calculateProfit() {
-        const buy = parseFloat(document.getElementById("buyPrice").value);
-        const sell = parseFloat(document.getElementById("sellPrice").value);
-        const shares = parseFloat(document.getElementById("shares").value);
-        if (isNaN(buy) || isNaN(sell) || isNaN(shares)) {
-          document.getElementById("profitResult").textContent =
-            "请输入完整数据";
-          return;
-        }
-        const profit = (sell - buy) * shares;  
-        document.getElementById("profitResult").textContent =
-          "盈亏：" + profit.toFixed(2) + " 元";
-      }
-      function clearProfit() {
-        document.getElementById("buyPrice").value = "";
-        document.getElementById("sellPrice").value = "";
-        document.getElementById("shares").value = "";
-        document.getElementById("profitResult").textContent = "";
-      }
+    <!-- 卡片 2：两个数的百分比差异 -->
+    <section class="card">
+      <h2>两个数的百分比差异</h2>
+      <div class="row">
+        <label for="firstValue">第一个数：</label>
+        <input type="number" id="firstValue" placeholder="例如 100" inputmode="decimal">
+      </div>
+      <div class="row">
+        <label for="secondValue">第二个数：</label>
+        <input type="number" id="secondValue" placeholder="例如 90" inputmode="decimal">
+      </div>
+      <button class="btn btn-green" onclick="calculatePercentageDifference()">计算差异</button>
+      <div id="diffResult" class="results"></div>
+    </section>
 
-      function calculatePercentage() {
-        const a = parseFloat(document.getElementById("valueA").value);
-        const b = parseFloat(document.getElementById("valueB").value);
-        if (isNaN(a) || isNaN(b)) {
-          document.getElementById("percentageResult").textContent =
-            "请输入完整数据";
-          return;
-        }
-        const diff = ((b - a) / a) * 100;  
-        document.getElementById("percentageResult").textContent =
-          "百分比差：" + diff.toFixed(2) + "%";
+    <div class="sep">…</div>
+
+    <footer>
+      © 2025 朱飞宇. All Rights Reserved（版权所有）。
+    </footer>
+  </div>
+
+  <script>
+    // 盈利：1%~10%（步进1）+ 20%~90%（步进10）
+    function calculateProfit() {
+      const base = parseFloat(document.getElementById("baseNumber").value);
+      const resultsDiv = document.getElementById("results");
+      if (isNaN(base)) {
+        resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
+        return;
       }
-      function clearPercentage() {
-        document.getElementById("valueA").value = "";
-        document.getElementById("valueB").value = "";
-        document.getElementById("percentageResult").textContent = "";
+      let html = "<ul>";
+      for (let i = 1; i <= 10; i++) {
+        const result = base * (1 + i / 100);
+        html += `<li>增加 ${i}%：${result.toFixed(2)}</li>`;
       }
-    </script>
-  </body>
+      for (let i = 20; i <= 90; i += 10) {
+        const result = base * (1 + i / 100);
+        html += `<li>增加 ${i}%：${result.toFixed(2)}</li>`;
+      }
+      html += "</ul>";
+      resultsDiv.innerHTML = html;
+    }
+
+    // 亏损：1%~10%（步进1）+ 20%~90%（步进10）
+    function calculateLoss() {
+      const base = parseFloat(document.getElementById("baseNumber").value);
+      const resultsDiv = document.getElementById("results");
+      if (isNaN(base)) {
+        resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
+        return;
+      }
+      let html = "<ul>";
+      for (let i = 1; i <= 10; i++) {
+        const result = base * (1 - i / 100);
+        html += `<li>减少 ${i}%：${result.toFixed(2)}</li>`;
+      }
+      for (let i = 20; i <= 90; i += 10) {
+        const result = base * (1 - i / 100);
+        html += `<li>减少 ${i}%：${result.toFixed(2)}</li>`;
+      }
+      html += "</ul>";
+      resultsDiv.innerHTML = html;
+    }
+
+    // 两个数的百分比差异
+    function calculatePercentageDifference() {
+      const base = parseFloat(document.getElementById("firstValue").value);
+      const compare = parseFloat(document.getElementById("secondValue").value);
+      const diffDiv = document.getElementById("diffResult");
+
+      if (isNaN(base) || isNaN(compare)) {
+        diffDiv.innerHTML = "<p>请输入正确的数字！</p>";
+        return;
+      }
+      const difference = ((compare - base) / base) * 100;
+      diffDiv.innerHTML = `<p>差异：${difference.toFixed(2)}%</p>`;
+    }
+
+    // 一键清空
+    function clearAllInputs() {
+      ["baseNumber","firstValue","secondValue"].forEach(id=>{
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      document.getElementById("results").innerHTML = "";
+      document.getElementById("diffResult").innerHTML = "";
+      // 轻微反馈
+      try { navigator.vibrate && navigator.vibrate(8); } catch(e){}
+    }
+  </script>
+</body>
 </html>
