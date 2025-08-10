@@ -16,16 +16,16 @@
       --shadow:0 12px 24px rgba(0,0,0,.12);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%; overflow:hidden;}  
     body{
       margin:0;
-      font-family: -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft Yahei",Arial,sans-serif;
+      font-family: -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft Yahei",Arial,sans-serif;        
       color:var(--text);
       background:var(--bg);
       -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:16px;
-    }
+      -moz-osx-font-smoothing:grayscale;  
+       padding: env(safe-area-inset-top) 12px calc(env(safe-area-inset-bottom) + 8px) 12px;    
+    }  
 
     .wrap{max-width:720px;margin:0 auto 60px}
     h1{
