@@ -163,47 +163,46 @@
 
   <script>
     // 盈利：1%~10%（步进1）+ 20%~90%（步进10）
-    function calculateProfit() {
-      const base = parseFloat(document.getElementById("baseNumber").value);
-      const resultsDiv = document.getElementById("results");
-      if (isNaN(base)) {
-        resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
-        return;
-      }
-      let html = "<ul>";
-      for (let i = 1; i <= 10; i++) {
-        const result = base * (1 + i / 100);
-        html += `<li>增加 ${i}%：${result.toFixed(4)}</li>`;  
-      }
-      for (let i = 20; i <= 90; i += 10) {
-        const result = base * (1 + i / 100);
-        html += `<li>增加 ${i}%：${result.toFixed(4)}</li>`;
-      }
-      html += "</ul>";
-      resultsDiv.innerHTML = html;
-    }
+function calculateProfit() {
+  const base = parseFloat(document.getElementById("baseNumber").value);  
+  const resultsDiv = document.getElementById("results");
+  if (isNaN(base)) {
+    resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
+    return;
+  }
+  let html = "<ul>";
+  for (let i = 1; i <= 10; i++) {
+    const result = base * (1 + i / 100);
+    html += `<li>增加 ${i}%：${parseFloat(result.toFixed(4))}</li>`;
+  }
+  for (let i = 20; i <= 90; i += 10) {  
+    const result = base * (1 + i / 100);
+    html += `<li>增加 ${i}%：${parseFloat(result.toFixed(4))}</li>`;
+  }
+  html += "</ul>";
+  resultsDiv.innerHTML = html;
+}
 
-    // 亏损：1%~10%（步进1）+ 20%~90%（步进10）
-    function calculateLoss() {
-      const base = parseFloat(document.getElementById("baseNumber").value);
-      const resultsDiv = document.getElementById("results");
-      if (isNaN(base)) {
-        resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
-        return;
-      }
-      let html = "<ul>";
-      for (let i = 1; i <= 10; i++) {
-        const result = base * (1 - i / 100);
-        html += `<li>减少 ${i}%：${result.toFixed(4)}</li>`;  
-      }
-      for (let i = 20; i <= 90; i += 10) {
-        const result = base * (1 - i / 100);
-        html += `<li>减少 ${i}%：${result.toFixed(4)}</li>`;        
-      }
-      html += "</ul>";
-      resultsDiv.innerHTML = html;
-    }
-
+// 亏损
+function calculateLoss() {
+  const base = parseFloat(document.getElementById("baseNumber").value);
+  const resultsDiv = document.getElementById("results");
+  if (isNaN(base)) {
+    resultsDiv.innerHTML = "<p>请输入正确的数字！</p>";
+    return;
+  }
+  let html = "<ul>";
+  for (let i = 1; i <= 10; i++) {
+    const result = base * (1 - i / 100);
+    html += `<li>减少 ${i}%：${parseFloat(result.toFixed(4))}</li>`;
+  }
+  for (let i = 20; i <= 90; i += 10) {
+    const result = base * (1 - i / 100);
+    html += `<li>减少 ${i}%：${parseFloat(result.toFixed(4))}</li>`;
+  }
+  html += "</ul>";
+  resultsDiv.innerHTML = html;
+}
     // 两个数的百分比差异
     function calculatePercentageDifference() {
       const base = parseFloat(document.getElementById("firstValue").value);
