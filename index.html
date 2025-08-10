@@ -108,9 +108,18 @@
       text-align:center;
       color:#94a3b8;
       font-size:14px;
-      padding-bottom:24px; /* 预留 iOS 手势条 */
+      padding:6px 0 calc(env(safe-area-inset-bottom)) /* 预留 iOS 手势条 */  
     }
-
+ /* 布局：头部 + 内容区(可内部滚) + 底部 */
+    .content{
+      display:flex;
+      flex-direction:column;  
+      gap:10px;
+      /* 关键：只让中间内容区在必要时内部滚动，外层不滚 */
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;  
+      padding-bottom:4px;
+    }
     /* 小屏优化 */
     @media (max-width:480px){
       body{padding:12px}
