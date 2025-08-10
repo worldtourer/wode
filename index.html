@@ -194,11 +194,11 @@
       let html = "<ul>";
       for (let i = 1; i <= 10; i++) {
         const result = base * (1 - i / 100);
-        html += `<li>减少 ${i}%：${result.toFixed(2)}</li>`;
+        html += `<li>减少 ${i}%：${result.toFixed(4)}</li>`;
       }
       for (let i = 20; i <= 90; i += 10) {
         const result = base * (1 - i / 100);
-        html += `<li>减少 ${i}%：${result.toFixed(2)}</li>`;
+        html += `<li>减少 ${i}%：${result.toFixed(4)}</li>`;    
       }
       html += "</ul>";
       resultsDiv.innerHTML = html;
